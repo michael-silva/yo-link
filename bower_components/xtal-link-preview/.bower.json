@@ -1,0 +1,28 @@
+{
+  "name": "xtal-link-preview",
+  "description": "Open URL Preview",
+  "main": "xtal-link-preview.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.0.0"
+  },
+  "homepage": "https://github.com/bahrus/xtal-link-preview",
+  "version": "0.0.11",
+  "_release": "0.0.11",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.11",
+    "commit": "eba1c92545484d39edd8fded0d9db3bfbba57b28"
+  },
+  "_source": "https://github.com/bahrus/xtal-link-preview.git",
+  "_target": "^0.0.11",
+  "_originalSource": "bahrus/xtal-link-preview",
+  "_direct": true
+}

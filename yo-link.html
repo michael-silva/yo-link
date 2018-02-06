@@ -1,0 +1,107 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../xtal-link-preview/xtal-link-preview.html">
+
+<dom-module id="yo-link">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            #preview {
+                height: var(--yo-link-preview-height, 200px);
+                opacity: 1;
+                transition: all .4s ease-in-out;
+            }
+
+            #preview.hidden {
+                height: 10px;
+                opacity: 0;
+                transition: all .4s ease-in-out;
+            }
+        </style>
+        <iron-form id="iform">
+            <form>
+                <paper-input id="text" label="{{textLabel}}" value="{{textValue::input}}" required auto-validate></paper-input>
+                <paper-input id="url" label="{{urlLabel}}" value="{{urlValue::input}}" required auto-validate pattern$="[[urlPattern]]"></paper-input>
+                <slot name="footer"></slot>
+                <xtal-link-preview id="preview" class="hidden" preview></xtal-link-preview>
+            </form>
+        </iron-form>
+    </template>
+
+    <script>
+        /**
+         * `yo-link`
+         * Form with fields prepared to turn a link editable 
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class YoLink extends Polymer.Element {
+            static get is() { return 'yo-link'; }
+            static get properties() {
+                return {
+                    textLabel: {
+                        type: String,
+                        value: 'Link text'
+                    },
+                    textValue: {
+                        type: String,
+                        notify: true
+                    },
+                    urlLabel: {
+                        type: String,
+                        value: 'Link address'
+                    },
+                    urlValue: {
+                        type: String,
+                        observer: '_urlChanged',
+                        notify: true
+                    },
+                    previewDisabled: {
+                        type: Boolean,
+                        value: false
+                    },
+                    urlPattern: {
+                        type: String,
+                        value: String.raw`^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$`
+                    }
+                };
+            }
+
+            _urlChanged(newValue, oldValue) {
+                if (this.previewDisabled) return;
+
+                if (this.$.url.validate()) {
+                    this.$.preview.classList.remove('hidden');
+                    this.$.preview.setAttribute('href', newValue);
+                }
+                else {
+                    this.$.preview.classList.add('hidden');
+                }
+            }
+
+            validate() {
+                return this.$.iform.validate();
+            }
+
+            reset() {
+                this.$.url.value = null;
+                this.$.url.invalid = false;
+                this.$.text.value = null;
+                this.$.text.invalid = false;
+                this.$.preview.classList.add('hidden');
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+            }
+        }
+
+        window.customElements.define(YoLink.is, YoLink);
+    </script>
+</dom-module>

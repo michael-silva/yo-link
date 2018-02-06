@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>yo-link demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../paper-item/paper-item.html">
+    <link rel="import" href="../yo-link.html">
+
+    <custom-style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+        </style>
+    </custom-style>
+</head>
+
+<body>
+    <div class="vertical-section-container centered">
+        <h3>Using footer slot yo-link demo</h3>
+        <demo-snippet>
+            <template>
+                <style>
+                    paper-button {
+                        background-color: var(--paper-indigo-500);
+                        color: white;
+                    }
+                </style>
+                <yo-link id="link-creator">
+                    <div slot="footer">
+                        <paper-button id="save" raised>Save Link</paper-button>
+                        <a href="#" id="result">Demo link </a>
+                    </div>
+                </yo-link>
+                <script>
+                    document.querySelector('#link-creator #save').addEventListener('click', () => {
+                        var elem = document.querySelector('yo-link');
+                        if (elem.validate()) {
+                            var result = document.querySelector('#result');
+                            result.href = elem.urlValue;
+                            result.textContent = elem.textValue;
+                            elem.reset();
+                        }
+                        else {
+                            alert('Fill the fields with valid values to cerate a link')
+                        }
+                    });
+                </script>
+            </template>
+        </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+        <h3>Edit links click at links yo-link demo</h3>
+        <demo-snippet>
+            <template>
+                <style>
+                    paper-button {
+                        background-color: var(--paper-indigo-500);
+                        color: white;
+                    }
+
+                </style>
+
+                <paper-item><a class="link-editable" href="https://www.webcomponents.org" target="_blank">Web Components</a></paper-item>
+                <paper-item><a class="link-editable" href="https://material.io/" target="_blank">Material</a></paper-item>
+                <paper-item><a class="link-editable" href="https://www.google.com.br" target="_blank">Google</a></paper-item>
+                
+                <yo-link id="link-editor" url-value="https://www.webcomponents.org" text-value="Web Components"></yo-link>
+                <paper-button id="save" raised>Save Link</paper-button>
+                <script>
+                    var linkSelected = document.querySelector('.link-editable');
+                    var yoLink = document.querySelector('#link-editor');
+
+                    document.querySelectorAll('.link-editable').forEach(elem => {
+                        elem.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            linkSelected = e.target;
+                            yoLink.urlValue = linkSelected.href;
+                            yoLink.textValue = linkSelected.textContent;
+                        })
+                    });
+                    document.querySelector('#link-editor + #save').addEventListener('click', () => {
+                        if (linkSelected && yoLink.validate()) {
+                            linkSelected.href = yoLink.urlValue;
+                            linkSelected.textContent = yoLink.textValue;
+                        }
+                        else {
+                            alert('Fill the fields with valid values to cerate a link')
+                        }
+                    });
+                </script>
+            </template>
+        </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+        <h3>Using with dialog yo-link demo</h3>
+        <demo-snippet>
+            <template>
+                <yo-link url-label="Custom url label" text-label="Custom text label"></yo-link>
+            </template>
+        </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+        <h3>Basic yo-link demo</h3>
+        <demo-snippet>
+            <template>
+                <yo-link></yo-link>
+            </template>
+        </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+        <h3>Passing values yo-link demo</h3>
+        <demo-snippet>
+            <template>
+                <yo-link url-value="https://www.webcomponents.org" text-value="Web Components"></yo-link>
+            </template>
+        </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+        <h3>Disable preview yo-link demo</h3>
+        <demo-snippet>
+            <template>
+                <yo-link preview-disabled url-value="https://www.webcomponents.org" text-value="Web Components"></yo-link>
+            </template>
+        </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+        <h3>Changing labels yo-link demo</h3>
+        <demo-snippet>
+            <template>
+                <yo-link url-label="Custom url label" text-label="Custom text label"></yo-link>
+            </template>
+        </demo-snippet>
+    </div>
+</body>
+
+</html>

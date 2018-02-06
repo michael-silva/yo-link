@@ -1,7 +1,9 @@
 {
   "name": "yo-link",
+  "version": "1.0.0",
   "description": "Form with fields prepared to turn a link editable ",
   "main": "yo-link.html",
+  "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "iron-form": "^2.1.3",

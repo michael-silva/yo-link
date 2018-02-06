@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>xtal-link-preview demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <script async src="../xtal-link-preview.js"></script>
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic xtal-link-preview demo</h3>
+      <demo-snippet>
+        <template>
+          <xtal-link-preview preview href="https://www.webcomponents.org/" style="height:200px;" >
+            Loading Web Component Sigil<span style="font-size:6px">⌛⌛⌛</span>
+          </xtal-link-preview>
+         
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

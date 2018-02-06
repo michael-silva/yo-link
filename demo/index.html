@@ -11,8 +11,6 @@
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../paper-button/paper-button.html">
-    <link rel="import" href="../../paper-item/paper-item.html">
     <link rel="import" href="../yo-link.html">
 
     <custom-style>
@@ -26,15 +24,9 @@
         <h3>Using footer slot yo-link demo</h3>
         <demo-snippet>
             <template>
-                <style>
-                    paper-button {
-                        background-color: var(--paper-indigo-500);
-                        color: white;
-                    }
-                </style>
                 <yo-link id="link-creator">
                     <div slot="footer">
-                        <paper-button id="save" raised>Save Link</paper-button>
+                        <button id="save" raised>Save Link</button>
                         <a href="#" id="result">Demo link </a>
                     </div>
                 </yo-link>
@@ -59,20 +51,13 @@
         <h3>Edit links click at links yo-link demo</h3>
         <demo-snippet>
             <template>
-                <style>
-                    paper-button {
-                        background-color: var(--paper-indigo-500);
-                        color: white;
-                    }
 
-                </style>
-
-                <paper-item><a class="link-editable" href="https://www.webcomponents.org" target="_blank">Web Components</a></paper-item>
-                <paper-item><a class="link-editable" href="https://material.io/" target="_blank">Material</a></paper-item>
-                <paper-item><a class="link-editable" href="https://www.google.com.br" target="_blank">Google</a></paper-item>
+                <p><a class="link-editable" href="https://www.webcomponents.org" target="_blank">Web Components</a></p>
+                <p><a class="link-editable" href="https://material.io/" target="_blank">Material</a></p>
+                <p><a class="link-editable" href="https://www.google.com.br" target="_blank">Google</a></p>
                 
                 <yo-link id="link-editor" url-value="https://www.webcomponents.org" text-value="Web Components"></yo-link>
-                <paper-button id="save" raised>Save Link</paper-button>
+                <button id="save" raised>Save Link</button>
                 <script>
                     var linkSelected = document.querySelector('.link-editable');
                     var yoLink = document.querySelector('#link-editor');

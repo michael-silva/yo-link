@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../animated-content-placeholder/animated-content-placeholder.html">
 <link rel="import" href="../xtal-link-preview/xtal-link-preview.html">
 
 <dom-module id="yo-link">
@@ -11,7 +12,9 @@
             }
 
             #preview {
-                height: var(--yo-link-preview-height, 200px);
+                position: relative;
+                overflow: hidden;
+                height: var(--yo-link-preview-height, 120px);
                 opacity: 1;
                 transition: all .4s ease-in-out;
             }
@@ -21,13 +24,77 @@
                 opacity: 0;
                 transition: all .4s ease-in-out;
             }
+
+
+            /** HORIZONTAL PLACHOLDER **/
+
+            .horizontal-placeholder {
+                --animation-height: var(--yo-link-preview-height, 120px);
+            }
+
+            .horizontal-placeholder>.background-masker {
+                background: #fff;
+                position: absolute;
+            }
+
+            .horizontal-placeholder>.background-masker.header-top {
+                top: 0;
+                left: 20%;;
+                right: 0;
+                height: 15px;
+            }
+
+            .horizontal-placeholder>.background-masker.header-left {
+                top: 0;
+                left: 20%;
+                height: 40px;
+                width: 15px;
+            }
+
+            .horizontal-placeholder>.background-masker.header-bottom {
+                top: 40px;
+                left: 20%;;
+                right: 0;
+                height: 20px;
+            }
+
+            .horizontal-placeholder>.background-masker.subheader-left {
+                top: 50px;
+                left: 20%;
+                height: 30px;
+                width: 15px;
+            }
+
+            .horizontal-placeholder>.background-masker.subheader-right {
+                top: 50px;
+                left: 60%;
+                right: 0;
+                height: 30px;
+            }
+
+            .horizontal-placeholder>.background-masker.subheader-bottom {
+                bottom: 0;
+                left: 20%;;
+                right: 0;
+                height: 40px;
+            }
         </style>
         <iron-form id="iform">
             <form>
                 <paper-input id="text" label="{{textLabel}}" value="{{textValue::input}}" required auto-validate></paper-input>
-                <paper-input id="url" label="{{urlLabel}}" value="{{urlValue::input}}" required auto-validate pattern$="[[urlPattern]]"></paper-input>
+                <paper-input id="url" label="{{urlLabel}}" value="{{urlValue::input}}" on-focus="_urlFocus" on-blur="_urlBlur" required auto-validate
+                    pattern$="[[urlPattern]]"></paper-input>
                 <slot name="footer"></slot>
-                <xtal-link-preview id="preview" class="hidden" preview></xtal-link-preview>
+                <xtal-link-preview id="preview" class="hidden" preview>
+                    <animated-content-placeholder class="horizontal-placeholder">
+                        <div class="background-masker header-top"></div>
+                        <div class="background-masker header-left"></div>
+                        <div class="background-masker header-bottom"></div>
+                        <div class="background-masker subheader-left"></div>
+                        <div class="background-masker subheader-right"></div>
+                        <div class="background-masker subheader-bottom"></div>
+                    </animated-content-placeholder>
+                </xtal-link-preview>
             </form>
         </iron-form>
     </template>
@@ -73,16 +140,30 @@
                 };
             }
 
-            _urlChanged(newValue, oldValue) {
-                if (this.previewDisabled) return;
+            _urlFocus() {
+                this._istyping = true;
+            }
 
+            _urlBlur() {
+                this._istyping = false;
+                this._showPreview();
+            }
+
+            _showPreview() {
+                if (this._istyping) return;
                 if (this.$.url.validate()) {
                     this.$.preview.classList.remove('hidden');
-                    this.$.preview.setAttribute('href', newValue);
+                    this.$.preview.setAttribute('href', this.urlValue);
                 }
                 else {
                     this.$.preview.classList.add('hidden');
                 }
+            }
+
+            _urlChanged(newValue, oldValue) {
+                if (this.previewDisabled) return;
+
+                this._showPreview();
             }
 
             validate() {

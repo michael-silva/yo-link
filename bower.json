@@ -1,6 +1,6 @@
 {
   "name": "yo-link",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Form with fields prepared to turn a link editable ",
   "main": "yo-link.html",
   "license": "MIT",
@@ -8,8 +8,6 @@
     "polymer": "Polymer/polymer#^2.0.0",
     "iron-form": "^2.1.3",
     "paper-input": "^2.1.0",
-    "bower": "*",
-    "install": "^1.0.4",
     "xtal-link-preview": "bahrus/xtal-link-preview#^0.0.11",
     "animated-content-placeholder": "^1.1.2"
   },
